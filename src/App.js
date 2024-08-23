@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Howl } from 'howler';
+import DrumPad from './components/DrumPad';
 import './index.css';
 
 const bankOne = [
@@ -52,19 +53,11 @@ function App() {
       </div>
       <div className="grid grid-cols-3 gap-4">
         {bankOne.map(pad => (
-          <button
+          <DrumPad
             key={pad.id}
-            id={pad.id}
-            className="drum-pad w-24 h-24 bg-gray-600 rounded shadow-lg flex items-center justify-center text-2xl"
-            onClick={() => playSound(pad.url, pad.keyTrigger, pad.id)}
-          >
-            {pad.keyTrigger}
-            <audio
-              className="clip"
-              id={pad.keyTrigger}
-              src={pad.url}
-            />
-          </button>
+            pad={pad}
+            playSound={playSound}
+          />
         ))}
       </div>
     </div>
