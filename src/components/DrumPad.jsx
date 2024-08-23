@@ -6,7 +6,7 @@ function DrumPad({ pad, playSound }) {
     const handleClick = () => {
         playSound(pad.url, pad.keyTrigger, pad.id);
         setIsActive(true);
-        setTimeout(() => setIsActive(false), 600);
+        setTimeout(() => setIsActive(false), 800);
     };
 
     return (
