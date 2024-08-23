@@ -43,8 +43,6 @@ function App() {
 
   const sliderStyles = {
     height: '150px',
-    width: '40px',
-    background: '#1e1e1e',
     borderRadius: '8px',
     marginTop: '20px',
   };
@@ -64,9 +62,16 @@ function App() {
   };
 
   return (
-    <div id="drum-machine" className="min-h-screen flex flex-col items-center justify-center bg-gray-800 text-white">
+    <div
+      id="drum-machine"
+      className="min-h-screen flex flex-col items-center justify-center bg-gray-800 text-white"
+      style={{
+        border: '4px solid #000',
+        padding: '16px'
+      }}
+    >
       <Display display={display} />
-      <div className="relative">
+      <div className="relative py-5 px-4 sm:px-0 md:px-16 lg:px-20 shadow-gradient" style={{ border: '2px solid black'}}>
         <div
           className={`absolute inset-0 ${shadowVisible ? 'bg-gradient-to-r from-red-500 via-blue-500 to-green-500 opacity-30 filter blur-xl' : 'opacity-0'} transition-opacity duration-1000`}
           style={{ boxShadow: shadowVisible ? '0px 0px 40px 20px rgba(0,0,0,0.5)' : 'none' }}
