@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Howl } from 'howler';
-import DrumPad from './components/DrumPad';
-import './index.css';
+import Display from './components/Display';
+import ButtonPanel from './components/ButtonPanel';
+import KeyHandler from './components/KeyHandler';
 
 const bankOne = [
   { keyCode: 81, keyTrigger: 'Q', id: 'Heater-1', url: '/sounds/Heater-1.mp3' },
@@ -34,32 +35,11 @@ function App() {
     setDisplay(clipId);
   };
 
-  const handleKeyPress = (e) => {
-    const pad = bankOne.find(pad => pad.keyCode === e.keyCode);
-    if (pad) {
-      playSound(pad.url, pad.keyTrigger, pad.id);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
-  }, []);
-
   return (
     <div id="drum-machine" className="min-h-screen flex flex-col items-center justify-center bg-gray-800 text-white">
-      <div id="display" className="mb-8 text-xl">
-        {display || "Play a sound!"}
-      </div>
-      <div className="grid grid-cols-3 gap-4">
-        {bankOne.map(pad => (
-          <DrumPad
-            key={pad.id}
-            pad={pad}
-            playSound={playSound}
-          />
-        ))}
-      </div>
+      <Display display={display} />
+      <ButtonPanel bankOne={bankOne} playSound={playSound} />
+      <KeyHandler bankOne={bankOne} playSound={playSound} />
     </div>
   );
 }

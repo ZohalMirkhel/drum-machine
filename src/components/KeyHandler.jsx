@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-function KeyHandler({ playSound }) {
+function KeyHandler({ bankOne, playSound }) {
   useEffect(() => {
     const handleKeyPress = (e) => {
       const pad = bankOne.find(pad => pad.keyCode === e.keyCode);
@@ -11,7 +11,7 @@ function KeyHandler({ playSound }) {
 
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [playSound]);
+  }, [bankOne, playSound]);
 
   return null;
 }
