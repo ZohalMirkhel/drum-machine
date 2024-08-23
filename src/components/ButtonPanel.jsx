@@ -21,7 +21,6 @@ function ButtonPanel({ playSound }) {
           key={pad.id}
           pad={pad}
           playSound={playSound}
-          className="w-24 h-24 md:w-20 md:h-20 sm:w-16 sm:h-16"
         />
       ))}
     </div>
