@@ -20,7 +20,7 @@ function App() {
   const [display, setDisplay] = useState('');
   const [shadowVisible, setShadowVisible] = useState(false);
 
-  const playSound = (soundUrl, clipId) => {
+  const playSound = (soundUrl, keyTrigger, clipId) => {
     const sound = new Howl({
       src: [soundUrl],
       volume: 0.5,
@@ -28,6 +28,12 @@ function App() {
     });
     sound.play();
     setDisplay(clipId);
+
+    const audioElement = document.getElementById(keyTrigger);
+    if (audioElement) {
+    audioElement.currentTime = 0;
+    audioElement.play();
+    }
     setShadowVisible(true);
     setTimeout(() => setShadowVisible(false), 2000);
   };

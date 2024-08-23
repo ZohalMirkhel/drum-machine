@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
 
-function KeyHandler({ bankOne, playSound }) {
+function KeyHandler({ bank, playSound }) {
   useEffect(() => {
-    const handleKeyPress = (e) => {
-      const pad = bankOne.find(pad => pad.keyCode === e.keyCode);
+    const handleKeyDown = (event) => {
+      const key = event.key.toUpperCase();
+      const pad = bank.find(p => p.keyTrigger === key);
+
       if (pad) {
         playSound(pad.url, pad.keyTrigger, pad.id);
       }
     };
 
-    document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [bankOne, playSound]);
+    window.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [bank, playSound]);
 
   return null;
 }
