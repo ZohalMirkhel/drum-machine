@@ -24,7 +24,6 @@ function App() {
     });
     sound.play();
 
-    // Also trigger the associated <audio> element
     const audioElement = document.getElementById(keyTrigger);
     if (audioElement) {
       audioElement.currentTime = 0;
