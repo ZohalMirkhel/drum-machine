@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 
 function KeyHandler({ bank, playSound }) {
   const handleKeyDown = useCallback((event) => {

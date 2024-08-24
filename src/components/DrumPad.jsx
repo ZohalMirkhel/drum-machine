@@ -3,16 +3,6 @@ import React, { useEffect, useState } from 'react';
 function DrumPad({ pad, playSound }) {
     const [isActive, setIsActive] = useState(false);
 
-    const handleClick = () => {
-        playAudio();
-    };
-
-    const handleKeyPress = (event) => {
-        if (event.key.toUpperCase() === pad.keyTrigger) {
-            playAudio();
-        }
-    };
-
     const playAudio = () => {
         const audioElement = document.getElementById(pad.keyTrigger);
         if (audioElement) {
@@ -25,11 +15,17 @@ function DrumPad({ pad, playSound }) {
     };
 
     useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key.toUpperCase() === pad.keyTrigger) {
+                playAudio();
+            }
+        };
+
         document.addEventListener('keydown', handleKeyPress);
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, [handleKeyPress, pad.keyTrigger]);
+    }, [pad.keyTrigger, playAudio]);
 
     return (
         <button
@@ -37,7 +33,7 @@ function DrumPad({ pad, playSound }) {
             className={`drum-pad w-20 h-20 sm:w-16 sm:h-16 md:w-24 md:h-24 lg:w-22 lg:h-22 rounded flex items-center justify-center text-2xl 
             ${isActive ? 'bg-mint' : 'bg-gray-600'} shadow-lg`}
             style={{ boxShadow: pad.shadow }}
-            onClick={handleClick}
+            onClick={playAudio}
         >
             {pad.keyTrigger}
             <audio
