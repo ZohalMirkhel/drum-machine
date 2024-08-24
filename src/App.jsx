@@ -3,6 +3,7 @@ import { Howl } from 'howler';
 import Display from './components/Display';
 import ButtonPanel from './components/ButtonPanel';
 import KeyHandler from './components/KeyHandler';
+import DrumHeader from './components/DrumHeader';
 
 const bankOne = [
   { keyCode: 81, keyTrigger: 'Q', id: 'Heater-1', url: '/sounds/Heater-1.mp3' },
@@ -52,6 +53,7 @@ function App() {
         padding: '16px',
       }}
     >
+      <DrumHeader />
       <Display display={display} />
       <div className="relative py-5 px-4 sm:px-0 md:px-16 lg:px-20 shadow-gradient">
         <div
