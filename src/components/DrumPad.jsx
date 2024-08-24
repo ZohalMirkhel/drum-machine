@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 function DrumPad({ pad, playSound }) {
     const [isActive, setIsActive] = useState(false);
 
-    const playAudio = () => {
+    const playAudio = useCallback(() => {
         const audioElement = document.getElementById(pad.keyTrigger);
         if (audioElement) {
             audioElement.currentTime = 0;
@@ -12,7 +12,7 @@ function DrumPad({ pad, playSound }) {
         playSound(pad.url, pad.keyTrigger, pad.id);
         setIsActive(true);
         setTimeout(() => setIsActive(false), 800);
-    };
+    }, [pad.keyTrigger, pad.url, pad.id, playSound]);
 
     useEffect(() => {
         const handleKeyPress = (event) => {
