@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Howl } from 'howler';
 import Display from './components/Display';
 import ButtonPanel from './components/ButtonPanel';
 import KeyHandler from './components/KeyHandler';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 
 const bankOne = [
   { keyCode: 81, keyTrigger: 'Q', id: 'Heater-1', url: '/sounds/Heater-1.mp3' },
@@ -21,38 +19,22 @@ const bankOne = [
 function App() {
   const [display, setDisplay] = useState('');
   const [shadowVisible, setShadowVisible] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+
+  const soundRefs = useRef({});
 
   const playSound = (soundUrl, keyTrigger, clipId) => {
-    const sound = new Howl({
-      src: [soundUrl],
-      volume: volume,
-      loop: false
-    });
-    sound.play();
+    if (!soundRefs.current[keyTrigger]) {
+      soundRefs.current[keyTrigger] = new Howl({
+        src: [soundUrl],
+        loop: false,
+      });
+    }
+
+    soundRefs.current[keyTrigger].play();
     setDisplay(clipId);
 
-    const audioElement = document.getElementById(keyTrigger);
-    if (audioElement) {
-      audioElement.currentTime = 0;
-      audioElement.play();
-    }
     setShadowVisible(true);
     setTimeout(() => setShadowVisible(false), 2000);
-  };
-
-  const sliderStyles = {
-    height: '150px',
-    borderRadius: '8px',
-    marginTop: '20px',
-  };
-
-  const volumeControlStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginLeft: '20px',
   };
 
   const layoutStyles = {
@@ -67,7 +49,7 @@ function App() {
       className="min-h-screen flex flex-col items-center justify-center bg-black text-white"
       style={{
         border: '4px solid #000',
-        padding: '16px'
+        padding: '16px',
       }}
     >
       <Display display={display} />
@@ -78,19 +60,6 @@ function App() {
         />
         <div className="relative z-10" style={layoutStyles}>
           <ButtonPanel playSound={playSound} />
-          <div style={volumeControlStyles}>
-            <label htmlFor="volume" className="block text-sm">Master Volume</label>
-            <Slider
-              id="volume"
-              vertical
-              min={0}
-              max={1}
-              step={0.01}
-              value={volume}
-              onChange={(value) => setVolume(value)}
-              style={sliderStyles}
-            />
-          </div>
         </div>
       </div>
       <KeyHandler bank={bankOne} playSound={playSound} />
