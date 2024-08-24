@@ -20,7 +20,7 @@ A Drum Machine built using React, Tailwind CSS, and Howler.js. This application 
 ## Live Demo
 
 ![alt text](image.png)
-You can view a live demo of the project [here](https://quote-machine--quote-machine-p.netlify.app/)
+You can view a live demo of the project [here](https://drum-machine--drum-machine-zohal.netlify.app/)
 
 
 ## Installation
