@@ -16,7 +16,7 @@ function DrumPad({ pad, playSound }) {
     const playAudio = () => {
         const audioElement = document.getElementById(pad.keyTrigger);
         if (audioElement) {
-            audioElement.currentTime = 0
+            audioElement.currentTime = 0;
             audioElement.play();
         }
         playSound(pad.url, pad.keyTrigger, pad.id);
@@ -29,7 +29,7 @@ function DrumPad({ pad, playSound }) {
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, []);
+    }, [handleKeyPress, pad.keyTrigger]);
 
     return (
         <button
